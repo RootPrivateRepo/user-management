@@ -1,0 +1,4 @@
+---
+- include: secrets_retrieval.yml
+- include: create_users.yml
+- include: secrets_cleanup.yml

@@ -1,0 +1,8 @@
+---
+- name: "Creating Groups"
+  hosts: aws_ec2
+  become: true
+  vars:
+    user_group: "{{ lookup('file', 'roles/group_creation/files/groupdata').split('\n') }}"
+  roles:
+    - group_creation

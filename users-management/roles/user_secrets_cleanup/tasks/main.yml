@@ -1,0 +1,4 @@
+---
+- name: "Cleaning /tmp Folder"
+  shell: find /tmp/ -type f -name "{{item.split(':')[0]}}.pub" -delete
+  loop: "{{ create_users }}"

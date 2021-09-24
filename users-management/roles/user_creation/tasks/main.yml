@@ -1,0 +1,31 @@
+---
+- name: "Creating Users"
+  user:
+    name: "{{ item.split(':')[0] }}"
+    shell: /bin/bash
+    state: present
+    create_home: yes
+  loop: "{{ create_users }}"
+
+- name: "Creating Home Directories"
+  file:
+    path: "/home/{{ item.split(':')[0] }}/.ssh"
+    state: directory
+    owner: "{{ item.split(':')[0] }}"
+    group: "{{ item.split(':')[0] }}"
+  loop: "{{ create_users }}"
+
+- name: "Adding Users To Groups"
+  user:
+    name: "{{ item.split(':')[0] }}"
+    groups: "{{ item.split(':')[1] }}"
+    state: present
+  loop: "{{ create_users }}"
+
+- name: "Adding Users Keys"
+  copy:
+    src: "/tmp/{{item.split(':')[0]}}.pub"
+    dest: "/home/{{item.split(':')[0]}}/.ssh/authorized_keys"
+    owner: "{{ item.split(':')[0] }}"
+    group: "{{ item.split(':')[0] }}"
+  loop: "{{ create_users }}"

@@ -1,0 +1,8 @@
+---
+- name: "Creating Users & Adding keys"
+  hosts: aws_ec2
+  become: true
+  vars:
+    create_users: "{{ lookup('file', 'roles/user_creation/files/createusers').split('\n') }}"
+  roles:
+    - user_creation

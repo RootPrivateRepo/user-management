@@ -1,0 +1,15 @@
+---
+- name: "Creating Groups"
+  group:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ user_group }}"
+
+- name: "Copy Sudoer File"
+  copy:
+    src: ../files/sudoers-template
+    dest: /etc/sudoers
+    owner: root
+    group: root
+    mode: 0440
+    backup: yes

@@ -1,0 +1,8 @@
+---
+- name: "Removing Users"
+  hosts: aws_ec2
+  become: true
+  vars:
+    delete_users: "{{ lookup('file', 'roles/user_deletion/files/deleteusers').split('\n') }}"
+  roles:
+    - user_deletion

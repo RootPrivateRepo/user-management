@@ -1,0 +1,8 @@
+---
+- name: "Deleting Users"
+  user:
+    name: "{{ item.split(':')[0] }}"
+    remove: "{{ item.split(':')[1] }}"
+    state: "{{ item.split(':')[2] }}"
+    force: yes
+  loop: "{{ delete_users }}"

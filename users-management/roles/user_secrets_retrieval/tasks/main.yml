@@ -1,0 +1,4 @@
+---
+- name: "Retrieving Secrets From Secrets Manager"
+  shell: aws secretsmanager get-secret-value --secret-id "{{item.split(':')[0]}}" --query SecretString --output text > "/tmp/{{item.split(':')[0]}}.pub"
+  loop: "{{ create_users }}"
